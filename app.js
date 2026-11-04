@@ -1,6 +1,6 @@
 /* Dakkhota SSC web reader — hash router, lessons, practice tools */
 (function () {
-  var DK = window.DK;
+  var DK = window.DK || {};
   var BN = '০১২৩৪৫৬৭৮৯', LET = ['ক', 'খ', 'গ', 'ঘ'];
   function bn(n) { return String(n).replace(/\d/g, function (d) { return BN[d]; }); }
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
@@ -30,7 +30,7 @@
 
   function band(t, sub) { return '<div class="band"><h1>' + t + '</h1>' + (sub ? '<p>' + sub + '</p>' : '') + '</div>'; }
   function footer() {
-    return '<footer><img src="img/brand/icon.png" alt="">© Dakkhota · SSC ব্যবসায় শিক্ষা<br>পাঠ্যবইয়ের পাতা: জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB), বাংলাদেশ</footer>';
+    return '<footer><img src="' + DK.icon + '" alt="">© Dakkhota · SSC ব্যবসায় শিক্ষা<br>পাঠ্যবইয়ের পাতা: জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB), বাংলাদেশ</footer>';
   }
   function setView(html, title) {
     app.innerHTML = html + footer();
@@ -41,7 +41,7 @@
   /* ---------- views ---------- */
   function home() {
     crumb.textContent = '';
-    var h = '<div class="hero"><img src="img/brand/logo-full.png" alt="Dakkhota"><p>SSC ব্যবসায় শিক্ষা বিভাগ · অধ্যায়ভিত্তিক ডিজিটাল বই, সহজ ব্যাখ্যা ও প্রশ্ন অনুশীলন</p></div>';
+    var h = '<div class="hero"><img class="heroicon" src="' + DK.icon + '" alt="Dakkhota"><div class="herotitle">Dakkhota</div><p>SSC ব্যবসায় শিক্ষা বিভাগ · অধ্যায়ভিত্তিক ডিজিটাল বই, সহজ ব্যাখ্যা ও প্রশ্ন অনুশীলন</p></div>';
     h += band('SSC ব্যবসায় শিক্ষা · নবম-দশম শ্রেণি', 'একটি বই বেছে নাও');
     h += '<div class="books">' + DK.books.map(function (b) {
       var bc = b.cover ? '<div class="bc" style="background-image:url(' + b.cover + ')"></div>' : '<div class="bc ph"><span>' + b.t + '</span></div>';

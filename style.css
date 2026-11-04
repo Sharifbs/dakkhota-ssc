@@ -300,3 +300,16 @@ table.eqt td.rm{font-size:12.5px;color:var(--muted);white-space:nowrap}
 .stim table.stl{margin:6px 0 2px;font-size:14.5px;background:transparent}
 .stim table.stl td{border:none;padding:1px 6px;background:transparent!important;font-weight:400;color:var(--ink)}
 .stim table.stl td:first-child{white-space:nowrap;color:var(--navy);font-weight:600}
+
+.hero .heroicon{width:110px;height:110px}
+.hero .herotitle{font-family:"Anek Bangla";font-weight:800;color:var(--navy);font-size:34px;line-height:1.1;margin-top:4px}
+.topbar img{background:#fff}
+
+/* PWA */
+.installbtn{margin-left:10px;border:none;background:var(--gold);color:var(--navy);font-weight:700;border-radius:20px;padding:5px 12px;font-size:13.5px;white-space:nowrap}
+@media (max-width:640px){.installbtn{margin-left:auto}}
+.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--navy);color:#fff;border-radius:12px;padding:10px 14px;z-index:60;box-shadow:0 6px 20px rgba(0,0,0,.25);font-size:14.5px;display:flex;gap:10px;align-items:center;max-width:92vw}
+.toast button,.iosHint button{border:none;background:var(--gold);color:var(--navy);font-weight:700;border-radius:8px;padding:4px 10px}
+.iosHint{position:fixed;left:10px;right:10px;bottom:calc(14px + env(safe-area-inset-bottom));background:#fff;border:2px solid var(--teal);border-radius:12px;padding:12px;z-index:61;font-size:14.5px;box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.topbar{padding-top:env(safe-area-inset-top)}
+@media (display-mode: standalone){ .installbtn{display:none!important} }
