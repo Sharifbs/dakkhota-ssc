@@ -1,0 +1,302 @@
+:root{--navy:#1B2F6E;--teal:#17A398;--gold:#F5C518;--ink:#1d2433;--muted:#5b6478;--tealbg:#E8F6F4;--navybg:#EEF1F8;--goldbg:#FFF8DC}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:"Hind Siliguri","Hind",sans-serif;color:var(--ink)}
+h1,h2,h3,h4{font-family:"Anek Bangla","Anek",sans-serif;color:var(--navy);line-height:1.35;margin:0}
+p{margin:0 0 8px}
+ul,ol{margin:4px 0 10px;padding-left:22px}
+li{margin-bottom:3px}
+b,strong{color:var(--navy);font-weight:600}
+.en{font-style:italic;color:var(--muted)}
+/* ---------- content ---------- */
+.page-break{page-break-before:always}
+.sec{margin:0 0 6mm}
+.sec-head{display:flex;align-items:center;gap:10px;margin:2mm 0 4mm;page-break-after:avoid}
+.sec-head .n{flex:none;background:var(--navy);color:#fff;font-family:"Anek Bangla";font-weight:700;border-radius:8px;padding:2px 10px;font-size:12pt}
+.sec-head h2{font-size:17pt;border-bottom:3px solid var(--teal);flex:1;padding-bottom:1mm}
+h3{font-size:13pt;margin:4mm 0 2mm;color:var(--navy)}
+h3:before{content:"◆ ";color:var(--teal)}
+.box{border-radius:10px;padding:10px 14px;margin:8px 0 12px;page-break-inside:avoid}
+.box .bt{font-family:"Anek Bangla";font-weight:700;font-size:11.5pt;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.box.def{background:var(--navybg);border-left:5px solid var(--navy)}
+.box.def .bt{color:var(--navy)}
+.box.rem{background:var(--goldbg);border-left:5px solid var(--gold)}
+.box.rem .bt{color:#8a6a00}
+.box.ex{background:var(--tealbg);border-left:5px solid var(--teal)}
+.box.ex .bt{color:#0d7a71}
+.box.tip{background:#fff;border:1.5px dashed var(--teal)}
+.box.tip .bt{color:#0d7a71}
+.quote{font-size:10.5pt;color:var(--muted);font-style:italic}
+table{width:100%;border-collapse:collapse;margin:6px 0 12px;font-size:10.8pt;page-break-inside:auto}
+tr{page-break-inside:avoid}
+thead{display:table-header-group}
+th{background:var(--navy);color:#fff;font-family:"Anek Bangla";font-weight:600;padding:6px 8px;text-align:left}
+td{border-bottom:1px solid #dfe3ec;padding:6px 8px;vertical-align:top}
+tr:nth-child(even) td{background:#f7f9fc}
+td:first-child{font-weight:600;color:var(--navy)}
+.toc{columns:2;column-gap:10mm;list-style:none;padding:0}
+.toc li{border-bottom:1px dotted #c5cbd8;padding:3px 0;break-inside:avoid}
+.toc li b{color:var(--teal)}
+.outcomes li::marker{color:var(--teal)}
+
+/* process flow */
+.flow{display:flex;align-items:stretch;justify-content:space-between;gap:4px;margin:10px 0 14px;page-break-inside:avoid}
+.flow .st{flex:1;background:var(--navybg);border-top:4px solid var(--teal);border-radius:8px;padding:8px 5px;text-align:center;font-size:10pt;line-height:1.45}
+.flow .st b{display:block;font-family:"Anek Bangla";font-size:11.5pt}
+.flow .st small{color:var(--muted)}
+.flow .ar{align-self:center;color:var(--teal);font-weight:700;font-size:14pt}
+
+/* timeline */
+.tline{border-left:3px solid var(--teal);margin:8px 0 12px 8px;padding-left:16px}
+.tline .ev{position:relative;margin-bottom:8px;page-break-inside:avoid}
+.tline .ev:before{content:"";position:absolute;left:-23.5px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid var(--navy)}
+.tline .yr{font-family:"Anek Bangla";font-weight:700;color:var(--teal)}
+
+/* users diagram */
+.two{display:flex;gap:12px;margin:8px 0 12px;page-break-inside:avoid}
+.two>div{flex:1;border-radius:10px;padding:10px 14px}
+.two .a{background:var(--navybg);border:1.5px solid var(--navy)}
+.two .b{background:var(--tealbg);border:1.5px solid var(--teal)}
+.two h4{font-size:12pt;margin-bottom:4px}
+
+/* branches cards */
+.cards{display:flex;gap:10px;margin:8px 0 12px;page-break-inside:avoid}
+.cards .c{flex:1;border:1.5px solid #d6dbe7;border-radius:10px;padding:10px 12px;font-size:10.6pt;line-height:1.6}
+.cards .c h4{font-size:12pt;color:var(--navy);margin-bottom:4px;border-bottom:2px solid var(--gold);padding-bottom:3px}
+
+/* Q&A */
+.qa{margin-bottom:9px;page-break-inside:avoid}
+.qa .q{font-weight:600;color:var(--navy)}
+.qa .q span{color:var(--teal);font-family:"Anek Bangla";font-weight:700;margin-right:4px}
+.qa .a{padding-left:20px}
+.cq{border:2px solid var(--navy);border-radius:12px;padding:12px 16px;margin:8px 0 14px}
+.cq .stim{background:var(--navybg);border-radius:8px;padding:8px 12px;margin-bottom:8px;page-break-inside:avoid}
+.cq .stim .lbl{font-family:"Anek Bangla";font-weight:700;color:var(--teal)}
+.cq ol.qs{list-style:none;padding-left:0;margin:4px 0 8px}
+.cq ol.qs li{margin-bottom:2px}
+.ans{margin:6px 0 10px;page-break-inside:avoid}
+.ans .h{display:inline-block;background:var(--teal);color:#fff;font-family:"Anek Bangla";font-weight:700;border-radius:6px;padding:0 10px;margin-bottom:4px;font-size:10.8pt}
+.mark{float:right;color:var(--muted);font-size:10pt}
+
+/* MCQ */
+.mcqs{columns:2;column-gap:9mm}
+.mcq{break-inside:avoid;margin-bottom:9px;font-size:10.8pt;line-height:1.6}
+.mcq .q{font-weight:600}
+.mcq .q span{color:var(--teal);font-family:"Anek Bangla";font-weight:700}
+.mcq .op{display:grid;grid-template-columns:1fr 1fr;padding-left:14px;color:#2d3548}
+.mcq .op.one{grid-template-columns:1fr}
+.common{column-span:all;background:var(--goldbg);border-left:5px solid var(--gold);border-radius:8px;padding:6px 12px;margin:4px 0 9px;font-size:10.8pt}
+.key{display:grid;grid-template-columns:repeat(10,1fr);gap:0;border:1.5px solid var(--navy);border-radius:8px;overflow:hidden;margin:6px 0 10px;page-break-inside:avoid}
+.key div{text-align:center;padding:4px 0;border-right:1px solid #d6dbe7;border-bottom:1px solid #d6dbe7;font-size:10.6pt}
+.key div.k{background:var(--navy);color:#fff;font-family:"Anek Bangla";font-weight:600}
+.gloss td:first-child{width:30%}
+.endnote{text-align:center;margin-top:10mm;page-break-inside:avoid}
+.endnote img{width:60mm}
+.endnote p{color:var(--muted);font-size:10.5pt}
+
+/* accounting tables */
+table.acc{font-size:10.4pt}
+table.acc td{font-weight:400;color:var(--ink)}
+table.acc td:first-child{font-weight:400;color:var(--ink);white-space:nowrap}
+table.acc td.num, table.acc th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+table.acc tr.tot td{font-weight:700;border-top:2px solid var(--navy);border-bottom:3px double var(--navy);background:#fff}
+table.acc td.ind{padding-left:28px}
+table.acc td.nar{font-style:italic;color:var(--muted);font-size:9.8pt;padding-top:0}
+table.acc tr.nb td{border-bottom:none}
+table.acc tr:nth-child(even) td{background:transparent}
+table.acc td.sub{font-weight:600;color:var(--navy);background:var(--navybg)!important}
+.tacc{display:flex;border:1.5px solid var(--navy);border-radius:6px;overflow:hidden;margin:6px 0 12px;page-break-inside:avoid}
+.tacc .ttl{font-family:"Anek Bangla";font-weight:700;text-align:center;color:#fff;background:var(--navy);padding:3px}
+.formula{background:var(--navy);color:#fff;border-radius:10px;padding:10px 16px;margin:8px 0 12px;text-align:center;font-family:"Anek Bangla";font-size:13pt;font-weight:600;page-break-inside:avoid}
+.formula small{display:block;font-family:"Hind Siliguri";font-weight:400;font-size:10pt;color:#cfe0ff}
+.step{counter-increment:st;margin:6px 0}
+.solved{border:1.5px solid var(--teal);border-radius:12px;padding:10px 14px;margin:10px 0 14px}
+.solved>.hd{font-family:"Anek Bangla";font-weight:700;color:#0d7a71;font-size:12pt;margin-bottom:4px}
+.badge{display:inline-block;background:var(--gold);color:var(--navy);font-family:"Anek Bangla";font-weight:700;border-radius:5px;padding:0 7px;font-size:10pt}
+.sec-head h2{page-break-after:avoid}
+h3{page-break-after:avoid}
+table.acc.small{font-size:9.2pt}
+table.acc.small td,table.acc.small th{padding:4px 4px}
+table.acc tr.st td{font-weight:600;color:var(--navy);border-top:1px solid #9aa6c4}
+
+/* ===== Dakkhota web reader: site layer (book content styles come from the ebook CSS above) ===== */
+html{scroll-behavior:smooth}
+body{background:#eef1f6;font-size:16px;line-height:1.75;-webkit-text-size-adjust:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:860px;margin:0 auto;padding:0 12px}
+
+/* top bar */
+.topbar{background:#fff;border-bottom:3px solid var(--teal);position:sticky;top:0;z-index:20}
+.topbar .wrap{display:flex;align-items:center;gap:10px;height:56px}
+.topbar img{width:36px;height:36px;border-radius:50%}
+.topbar .brand{font-family:"Anek Bangla";font-weight:700;color:var(--navy);font-size:20px;line-height:1}
+.topbar .brand small{display:block;font-family:"Hind Siliguri";font-weight:500;color:var(--muted);font-size:12px;margin-top:3px}
+.topbar .crumb{margin-left:auto;font-size:13px;color:var(--teal);font-weight:600;text-align:right;line-height:1.3}
+
+/* blue title band (like the model) */
+.band{background:linear-gradient(135deg,var(--navy) 0%,#24408f 100%);color:#fff;border-radius:12px;padding:16px 18px;text-align:center;margin:14px 0;position:relative;overflow:hidden}
+.band:after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:linear-gradient(90deg,var(--teal),var(--gold))}
+.band h1{color:#fff;font-size:24px;margin:0}
+.band p{margin:2px 0 0;color:#cfdcff;font-size:13.5px}
+
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 10px rgba(27,47,110,.08);padding:16px;margin:0 0 14px}
+.card>.ct{font-family:"Anek Bangla";font-weight:700;color:var(--navy);font-size:16px;display:flex;align-items:center;gap:8px;border-bottom:2px dashed #d6dbe7;padding-bottom:8px;margin-bottom:12px}
+
+/* home: book cards */
+.hero{text-align:center;padding:22px 10px 6px}
+.hero img{width:min(320px,80%)}
+.hero p{color:var(--muted);margin:6px 0 0}
+.books{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:16px 0}
+.book{display:block;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(27,47,110,.1);transition:transform .15s}
+.book:hover{transform:translateY(-3px)}
+.book .bc{height:150px;background:var(--navy) center/cover no-repeat;position:relative}
+.book .bc.ph{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--navy),#2b4aa0)}
+.book .bc.ph span{font-family:"Anek Bangla";font-weight:700;color:#fff;font-size:26px;opacity:.9}
+.book .bb{padding:12px 14px}
+.book h3{margin:0;font-size:19px}
+.book h3:before{content:none}
+.book .en{font-size:13px}
+.book .st{display:inline-block;margin-top:8px;font-size:12.5px;font-weight:600;border-radius:20px;padding:1px 12px;background:var(--tealbg);color:#0d7a71}
+.book.soon{opacity:.75;pointer-events:none}
+.book.soon .st{background:var(--goldbg);color:#8a6a00}
+
+/* book page */
+.coverimg{width:100%;height:240px;object-fit:cover;object-position:center 0;border-radius:12px;display:block;margin-top:14px}
+.pageimg{width:100%;display:block;border:1px solid #e1e5ee;border-radius:8px;cursor:zoom-in;background:#fff}
+.pageimg+.pageimg{margin-top:10px}
+.zoomhint{text-align:center;font-size:12.5px;color:var(--muted);margin-top:4px}
+
+/* lists of links (lessons, chapters) */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.links{display:flex;flex-direction:column;gap:8px}
+.lnk{display:flex;align-items:center;gap:10px;border:1.5px solid #d6dbe7;border-radius:10px;padding:9px 12px;background:#fff;color:var(--navy);font-weight:600;font-size:15px;line-height:1.4;transition:all .12s}
+.lnk:hover{border-color:var(--teal);background:var(--tealbg)}
+.lnk .no{flex:none;min-width:30px;height:30px;border-radius:8px;background:var(--navy);color:#fff;font-family:"Anek Bangla";font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px;padding:0 6px}
+.lnk.q .no{background:var(--teal)}
+.lnk .tag{margin-left:auto;font-size:11.5px;font-weight:600;border-radius:20px;padding:0 9px;background:var(--goldbg);color:#8a6a00;white-space:nowrap}
+.lnk.off{color:#8a93a6;pointer-events:none;background:#fafbfd}
+.lnk.off .no{background:#b9c0cf}
+
+/* lesson page */
+.lesson{border-left:5px solid #f08a24}
+.lesson>.ct{border-bottom-style:solid}
+.lesson>.ct .ic{font-size:18px}
+.sub{font-family:"Anek Bangla";font-weight:700;color:var(--navy);font-size:17px;margin:22px 0 8px;display:flex;align-items:center;gap:8px}
+.sub:after{content:"";flex:1;height:2px;background:linear-gradient(90deg,var(--teal),transparent)}
+h2.lh{font-size:19px;margin:18px 0 8px;padding:6px 12px;background:var(--navybg);border-left:5px solid var(--teal);border-radius:6px}
+.content{font-size:16px}
+.content .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:6px 0 12px}
+.content .tw table{margin:0}
+.content .tw table.acc{min-width:0}
+.content table{font-size:14.5px}
+.content .mcqs{columns:1}
+
+/* prev / home / next */
+.pager{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:18px}
+.pager a,.pager span{border:1.5px solid #c9d0de;border-radius:10px;text-align:center;padding:9px 6px;font-weight:600;color:var(--navy);font-size:14px;background:#fff;line-height:1.3}
+.pager a:hover{border-color:var(--teal);background:var(--tealbg)}
+.pager span{color:#b3bacb}
+
+/* practice toggles */
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.btn{border:none;border-radius:8px;padding:7px 14px;font-weight:600;font-size:14px;background:var(--navy);color:#fff}
+.btn.alt{background:#fff;color:var(--navy);border:1.5px solid var(--navy)}
+.btn.teal{background:var(--teal)}
+.hideans .qa .a{filter:blur(6px);cursor:pointer;user-select:none;transition:filter .2s}
+.hideans .qa .a.show{filter:none}
+.cq .anss{display:none}
+.cq.open .anss{display:block}
+.cq .showans{margin:4px 0 6px}
+
+/* MCQ quiz */
+.score{position:sticky;top:59px;z-index:5;background:var(--navy);color:#fff;border-radius:10px;padding:8px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px;font-size:14.5px}
+.score b{color:var(--gold)}
+.score .btn{margin-left:auto;background:var(--gold);color:var(--navy);padding:4px 12px}
+.qz{border:1.5px solid #d6dbe7;border-radius:12px;padding:12px 14px;margin-bottom:12px;background:#fff}
+.qz .qq{font-weight:600;color:var(--navy);margin-bottom:8px}
+.qz .qq .n{color:var(--teal);font-family:"Anek Bangla";font-weight:700;margin-right:4px}
+.qz .ops{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.qz .ops.one{grid-template-columns:1fr}
+.qz .op{text-align:left;border:1.5px solid #d6dbe7;background:#fafbfd;border-radius:9px;padding:7px 10px;font-size:15px;color:var(--ink);line-height:1.45;display:flex;gap:7px}
+.qz .op .l{flex:none;width:24px;height:24px;border-radius:50%;background:var(--navybg);color:var(--navy);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:13px}
+.qz .op:hover{border-color:var(--teal)}
+.qz.done .op{pointer-events:none}
+.qz .op.ok{border-color:#1e9e58;background:#e7f7ee}
+.qz .op.ok .l{background:#1e9e58;color:#fff}
+.qz .op.bad{border-color:#d64545;background:#fdeceb}
+.qz .op.bad .l{background:#d64545;color:#fff}
+.qz .fb{font-size:13.5px;font-weight:600;margin-top:6px}
+.qz .fb.y{color:#1e9e58}.qz .fb.n{color:#d64545}
+.stem{background:var(--goldbg);border-left:5px solid var(--gold);border-radius:8px;padding:8px 12px;margin:4px 0 10px;font-size:15px}
+
+/* coming soon */
+.soonbox{text-align:center;padding:26px 14px;border:2px dashed #c9d0de;border-radius:12px;color:var(--muted)}
+.soonbox .big{font-size:40px}
+.soonbox h3{margin:6px 0}
+.soonbox h3:before{content:none}
+.qimg{margin-bottom:16px}
+.qimg .cap{font-family:"Anek Bangla";font-weight:700;color:var(--navy);margin-bottom:4px}
+
+/* lightbox */
+.lb{position:fixed;inset:0;background:rgba(10,16,35,.92);z-index:50;overflow:auto;display:none;padding:50px 8px 20px}
+.lb.on{display:block}
+.lb img{display:block;width:min(1000px,100%);margin:0 auto;border-radius:6px;background:#fff}
+.lb .x{position:fixed;top:10px;right:12px;width:40px;height:40px;border-radius:50%;border:none;background:var(--gold);color:var(--navy);font-size:22px;font-weight:700}
+
+footer{text-align:center;color:var(--muted);font-size:12.5px;padding:18px 10px 28px;line-height:1.6}
+footer img{width:30px;vertical-align:middle;margin-right:4px;border-radius:50%}
+
+@media (max-width:640px){
+  .grid2{grid-template-columns:1fr}
+  .toc{columns:1}
+  .two,.cards,.flow{flex-direction:column}
+  .flow .ar{transform:rotate(90deg)}
+  .qz .ops{grid-template-columns:1fr}
+  .band h1{font-size:20px}
+  .coverimg{height:150px}
+  .content{font-size:15.5px}
+  .card{padding:13px}
+  .topbar .crumb{display:none}
+}
+
+/* vocabulary table (পরিভাষা) — like the model's Vocabulary */
+table.vocab{font-size:14.5px}
+table.vocab th{background:var(--navy)}
+table.vocab td:first-child{color:var(--navy);font-weight:600;white-space:nowrap}
+table.vocab td.eng{color:#0d7a71;font-weight:600;white-space:nowrap}
+@media (max-width:640px){table.vocab td:first-child,table.vocab td.eng{white-space:normal}table.vocab{font-size:13.5px}table.vocab td,table.vocab th{padding:5px 6px}}
+/* solved textbook questions */
+.sol{border:1.5px solid #d6dbe7;border-radius:10px;padding:9px 12px;margin-bottom:9px;background:#fff}
+.sol .sq{font-weight:600;color:var(--navy)}
+.sol .sa{display:inline-block;margin-top:5px;background:#e7f7ee;color:#157a43;font-weight:700;border-radius:6px;padding:1px 10px}
+.sol .sw{font-size:14.5px;color:#3b4457;margin-top:4px}
+.solve h3{margin-top:14px}
+
+/* solved CQ blocks, equation tables, business documents */
+.solcq{border:2px solid var(--navy);border-radius:12px;padding:12px 14px;margin:10px 0 16px;background:#fff}
+.solcq .sct{font-family:"Anek Bangla";font-weight:700;color:var(--navy);font-size:17px;margin-bottom:6px;border-bottom:2px solid var(--gold);padding-bottom:4px}
+.solcq .scs{background:var(--navybg);border-radius:8px;padding:8px 12px;margin-bottom:8px}
+.note{font-size:13.5px;color:var(--muted);font-style:italic}
+.eqwrap .cap{font-weight:600;color:var(--navy)}
+table.eqt{font-size:13px}
+table.eqt th,table.eqt td{padding:5px 6px}
+table.eqt tr.grp th{background:var(--teal);text-align:center}
+table.eqt td.rm{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.eqchk{background:#e7f7ee;color:#157a43;border-radius:8px;padding:6px 10px;font-size:14px;margin:-4px 0 10px}
+.eqchk b{color:#157a43}
+.doc{border:2px solid var(--navy);border-radius:10px;padding:12px;margin:8px 0 12px;background:#fffefa}
+.doc .dh{text-align:center;position:relative;border-bottom:2px solid var(--navy);padding-bottom:6px;margin-bottom:8px}
+.doc .df{font-family:"Anek Bangla";font-weight:700;font-size:19px;color:var(--navy)}
+.doc .da{font-size:13px;color:var(--muted)}
+.doc .dk{display:inline-block;margin-top:4px;background:var(--navy);color:#fff;border-radius:20px;padding:0 14px;font-weight:600;font-size:13.5px}
+.doc .dm{display:grid;grid-template-columns:1fr 1fr;gap:2px 12px;font-size:14px;margin-bottom:6px}
+.doc .dm b{color:var(--ink)}
+.doc .dw{font-size:14px;margin-top:-4px}
+.doc .dn{font-size:13px;color:var(--muted);margin-top:4px}
+.doc .ds{display:flex;justify-content:space-between;gap:8px;margin-top:22px;flex-wrap:wrap}
+.doc .ds span{border-top:1px dashed #8a93a6;padding-top:2px;font-size:12.5px;color:var(--muted);min-width:70px;text-align:center}
+@media (max-width:640px){.doc .dm{grid-template-columns:1fr}}
+.stim table.stl{margin:6px 0 2px;font-size:14.5px;background:transparent}
+.stim table.stl td{border:none;padding:1px 6px;background:transparent!important;font-weight:400;color:var(--ink)}
+.stim table.stl td:first-child{white-space:nowrap;color:var(--navy);font-weight:600}
