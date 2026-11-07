@@ -2,8 +2,8 @@
    - app files & chapter data: network-first (always newest when online, works offline from cache)
    - book page images & fonts: cache-first (fast, saved for offline reading)
    Bump VERSION whenever app.js / style.css / index.html change. */
-const VERSION = 'dk-2026-11-07-22';
-const DATA = Array.from({ length: 12 }, (_, i) => 'data/acc/ch' + String(i + 1).padStart(2, '0') + '.js').concat(['data/acc/mt.js']);
+const VERSION = 'dk-2026-11-07-23';
+const DATA = Array.from({ length: 12 }, (_, i) => 'data/acc/ch' + String(i + 1).padStart(2, '0') + '.js').concat(['data/acc/mt.js', 'data/acc/mcq.js']);
 const SHELL = ['./', 'index.html', 'style.css', 'app.js', 'data/books.js', 'manifest.webmanifest',
   'img/brand/icon-192.png', 'img/brand/icon-512.png'];
 

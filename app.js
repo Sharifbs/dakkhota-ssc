@@ -58,7 +58,7 @@
     h += '<div class="card"><div class="ct">📚 অধ্যায়সমূহ</div><div class="links">' + b.chapters.map(function (c) {
       return '<a class="lnk' + (c.ready ? '' : ' off') + '" href="#' + b.id + '-' + c.n + '"><span class="no">' + bn(c.n) + '</span>' + c.t + (c.ready ? '' : '<span class="tag">শীঘ্রই</span>') + '</a>';
     }).join('') + '</div></div>';
-    if (b.id === 'acc') h += '<div class="card"><div class="ct">📝 পরীক্ষার প্রস্তুতি</div><div class="links"><a class="lnk" href="#acc-mt"><span class="no">✓</span>পূর্ণাঙ্গ মডেল টেস্ট (বোর্ড ২০২৪–২০২৫)</a></div></div>';
+    if (b.id === 'acc') h += '<div class="card"><div class="ct">📝 পরীক্ষার প্রস্তুতি</div><div class="links"><a class="lnk" href="#acc-mcqt"><span class="no">⏱</span>এমসিকিউ মডেল টেস্ট (অধ্যায়ভিত্তিক ও পূর্ণাঙ্গ)</a><a class="lnk" href="#acc-mt"><span class="no">✓</span>পূর্ণাঙ্গ মডেল টেস্ট — সৃজনশীল (বোর্ড ২০২৪–২০২৫)</a></div></div>';
     h += '<div class="pager"><a href="#home">🏠 হোম</a><span></span><span></span></div>';
     setView(h, b.t);
   }
@@ -77,7 +77,7 @@
       '</div></div><div class="card"><div class="ct">📝 প্রশ্ন ও অনুশীলন</div><div class="links">' +
       d.qsets.map(function (q, i) {
         return '<a class="lnk q" href="' + base + q.id + '"><span class="no">' + ['✍', '🧩', '✔', '🏛', '➕'][i % 5] + '</span>' + q.t + (q.soon ? '<span class="tag">শীঘ্রই</span>' : '') + '</a>';
-      }).join('') + '</div></div></div>';
+      }).join('') + (b.id === 'acc' ? '<a class="lnk q" href="#acc-mcqt-' + d.num + '"><span class="no">⏱</span>এমসিকিউ মডেল টেস্ট (সময় ধরে)</a>' : '') + '</div></div></div>';
     h += '<div class="pager"><a href="#' + b.id + '">← সূচিপত্র</a><a href="#home">🏠 হোম</a><a href="' + base + 'l1">শুরু করো →</a></div>';
     setView(h, 'অধ্যায় ' + bn(d.num) + ': ' + d.title);
   }
@@ -197,11 +197,13 @@
   /* ---------- router: #home, #acc, #acc-1, #acc-1-l3, #acc-1-mcq ---------- */
   function route() {
     $('#lb').classList.remove('on');
+    if (DK.timer) { clearInterval(DK.timer); DK.timer = null; }
     var p = (location.hash || '').replace(/^#/, '').split('-').filter(Boolean);
     var b = p[0] && findBook(p[0]);
     if (!b || b.soon) return home();
     if (!p[1]) return book(b);
     if (p[1] === 'mt') return modelTests(b);
+    if (p[1] === 'mcqt') return mcqTest(b, p[2]);
     var n = +p[1], c = b.chapters.filter(function (x) { return x.n === n; })[0];
     if (!c || !c.ready) return book(b);
     app.innerHTML = '<div class="card" style="margin-top:14px;text-align:center">লোড হচ্ছে…</div>';
@@ -213,6 +215,96 @@
       return q ? qset(b, d, q) : chapter(b, d);
     }, function () { app.innerHTML = '<div class="card">এই অধ্যায়টি লোড করা যায়নি। পেজটি আবার খুলে দেখো।</div>'; });
   }
+
+  /* ---------- MCQ model tests: #acc-mcqt (menu), #acc-mcqt-all, #acc-mcqt-5 ---------- */
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function pickUnits(units, k) {
+    var out = [], n = 0;
+    shuffle(units).forEach(function (u) { if (n + u.i.length <= k) { out.push(u); n += u.i.length; } });
+    return out;
+  }
+  function mcqTest(b, sel) {
+    if (!DK.mcq) {
+      app.innerHTML = '<div class="card" style="margin-top:14px;text-align:center">লোড হচ্ছে…</div>';
+      var s = document.createElement('script'); s.src = 'data/acc/mcq.js';
+      s.onload = function () { mcqTest(b, sel); };
+      s.onerror = function () { app.innerHTML = '<div class="card">প্রশ্নব্যাংক লোড করা যায়নি।</div>'; };
+      return document.head.appendChild(s);
+    }
+    var M = DK.mcq, chs = Object.keys(M).map(Number).sort(function (x, y) { return x - y; });
+    crumb.textContent = b.t + ' · এমসিকিউ মডেল টেস্ট';
+    var best = store('mcqbest') || {};
+    function bestTag(k) { return best[k] !== undefined ? '<span class="tag">সেরা ' + bn(best[k]) + '%</span>' : ''; }
+    if (!sel) {
+      var h = band('এমসিকিউ মডেল টেস্ট', 'সময় ধরে পরীক্ষা · প্রতিবার নতুন প্রশ্ন');
+      h += '<div class="card"><div class="box def"><div class="bt">⏱ নিয়ম</div><p>প্রতি প্রশ্নে ১ মিনিট সময়। উত্তর দাগিয়ে শেষে “জমা দাও” চাপো; সময় শেষ হলে নিজে থেকেই জমা হবে। জমা দেওয়ার পর সঠিক-ভুল ও নম্বর দেখাবে। প্রতিবার প্রশ্নব্যাংক থেকে নতুন করে প্রশ্ন বাছাই হয়।</p></div>' +
+        '<div class="ct">🎓 পূর্ণাঙ্গ (বোর্ড পরীক্ষার মতো)</div><div class="links"><a class="lnk" href="#acc-mcqt-all"><span class="no">৩০</span>সব অধ্যায় মিলিয়ে · ৩০টি প্রশ্ন · ৩০ মিনিট' + bestTag('all') + '</a></div>' +
+        '<div class="ct" style="margin-top:14px">📚 অধ্যায়ভিত্তিক</div><div class="links">' + chs.map(function (n) {
+          return '<a class="lnk" href="#acc-mcqt-' + n + '"><span class="no">' + bn(n) + '</span>' + M[n].t + ' · ২০টি প্রশ্ন' + bestTag(n) + '</a>';
+        }).join('') + '</div></div><div class="pager"><a href="#' + b.id + '">← সূচিপত্র</a><a href="#home">🏠 হোম</a><span></span></div>';
+      return setView(h, 'এমসিকিউ মডেল টেস্ট');
+    }
+    var full = sel === 'all', n = full ? 0 : +sel;
+    if (!full && !M[n]) return mcqTest(b);
+    var units = [];
+    if (full) {
+      var per = {}; shuffle(chs).forEach(function (c, i) { per[c] = i < 6 ? 3 : 2; });
+      chs.forEach(function (c) { pickUnits(M[c].u, per[c]).forEach(function (u) { units.push({ c: c, u: u }); }); });
+    } else pickUnits(M[n].u, 20).forEach(function (u) { units.push({ c: n, u: u }); });
+    var items = [], hq = '', k = 0;
+    units.forEach(function (x) {
+      if (x.u.s) hq += '<div class="stem">' + x.u.s + '</div>';
+      x.u.i.forEach(function (it) {
+        items.push(it);
+        var long = it.o.some(function (o) { return o.replace(/<[^>]+>/g, '').length > 22; });
+        hq += '<div class="qz" data-i="' + k + '"><div class="qq"><span class="n">' + bn(k + 1) + '.</span>' + it.q + (full ? ' <span class="chtag">অ. ' + bn(x.c) + '</span>' : '') + '</div><div class="ops' + (long ? ' one' : '') + '">' +
+          it.o.map(function (o, j) { return '<button class="op" data-j="' + j + '"><span class="l">' + LET[j] + '</span><span>' + o + '</span></button>'; }).join('') + '</div><div class="fb"></div></div>';
+        k++;
+      });
+    });
+    var total = items.length, secs = total * 60, left = secs, ans = {}, done = false;
+    var title = full ? 'পূর্ণাঙ্গ এমসিকিউ মডেল টেস্ট' : 'অধ্যায় ' + bn(n) + ': ' + M[n].t;
+    var h2 = band(title, bn(total) + 'টি প্রশ্ন · ' + bn(total) + ' মিনিট · পূর্ণমান ' + bn(total));
+    h2 += '<div class="card lesson"><div class="score" id="tbar"><span id="tleft"></span><span id="tans"></span><button class="btn" id="tsub">জমা দাও</button></div><div id="tres"></div>' + hq + '</div>';
+    h2 += '<div class="pager"><a href="#acc-mcqt">← সব মডেল টেস্ট</a><a href="#' + b.id + '">সূচিপত্র</a><span></span></div>';
+    setView(h2, title);
+    function fmtT(t) { var m = Math.floor(t / 60), s = t % 60; return bn(m) + ':' + bn(s < 10 ? '0' + s : s); }
+    function bar() {
+      $('#tleft').innerHTML = done ? 'পরীক্ষা শেষ' : '⏱ বাকি সময়: <b>' + fmtT(left) + '</b>';
+      $('#tans').innerHTML = 'উত্তর দিয়েছ: <b>' + bn(Object.keys(ans).length) + '</b> / ' + bn(total);
+    }
+    $$('.qz').forEach(function (box) {
+      $$('.op', box).forEach(function (op) {
+        op.onclick = function () {
+          if (done) return;
+          $$('.op', box).forEach(function (o) { o.classList.remove('sel'); });
+          op.classList.add('sel'); ans[box.dataset.i] = +op.dataset.j; bar();
+        };
+      });
+    });
+    function submit() {
+      if (done) return; done = true; clearInterval(DK.timer); DK.timer = null;
+      var ok = 0, skip = 0;
+      $$('.qz').forEach(function (box) {
+        var i = box.dataset.i, a = items[i].a, ops = $$('.op', box), fb = $('.fb', box), j = ans[i];
+        box.classList.add('done'); ops[a].classList.add('ok');
+        if (j === undefined) { skip++; fb.className = 'fb n'; fb.textContent = '— উত্তর দেওয়া হয়নি। সঠিক উত্তর: (' + LET[a] + ')'; }
+        else if (j === a) { ok++; fb.className = 'fb y'; fb.textContent = '✓ সঠিক!'; }
+        else { ops[j].classList.add('bad'); fb.className = 'fb n'; fb.textContent = '✗ ভুল। সঠিক উত্তর: (' + LET[a] + ')'; }
+      });
+      var pct = Math.round(ok * 100 / total), g = pct >= 80 ? 'A+' : pct >= 70 ? 'A' : pct >= 60 ? 'A−' : pct >= 50 ? 'B' : pct >= 40 ? 'C' : pct >= 33 ? 'D' : 'F';
+      var key = full ? 'all' : n; if (best[key] === undefined || pct > best[key]) { best[key] = pct; store('mcqbest', best); }
+      $('#tres').innerHTML = '<div class="box ex"><div class="bt">📊 ফলাফল</div><p style="font-size:17px">প্রাপ্ত নম্বর: <b>' + bn(ok) + ' / ' + bn(total) + '</b> (' + bn(pct) + '%) · গ্রেড (আনুমানিক): <b>' + g + '</b></p>' +
+        '<p>সঠিক ' + bn(ok) + ' · ভুল ' + bn(total - ok - skip) + ' · উত্তর দেওয়া হয়নি ' + bn(skip) + ' · সময় লেগেছে ' + fmtT(secs - left) + '</p>' +
+        '<p>নিচে প্রতিটি প্রশ্নের সঠিক উত্তর সবুজ ও তোমার ভুল উত্তর লাল রঙে দেখানো হয়েছে।</p><button class="btn teal" id="tagain">↻ নতুন প্রশ্নে আবার দাও</button></div>';
+      $('#tagain').onclick = function () { mcqTest(b, sel); };
+      $('#tsub').style.display = 'none'; bar(); window.scrollTo(0, 0);
+    }
+    $('#tsub').onclick = submit;
+    bar();
+    DK.timer = setInterval(function () { left--; bar(); if (left <= 0) submit(); }, 1000);
+  }
+
   function modelTests(b) {
     var show = function () {
       crumb.textContent = b.t + ' · মডেল টেস্ট';
