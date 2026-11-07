@@ -58,6 +58,7 @@
     h += '<div class="card"><div class="ct">📚 অধ্যায়সমূহ</div><div class="links">' + b.chapters.map(function (c) {
       return '<a class="lnk' + (c.ready ? '' : ' off') + '" href="#' + b.id + '-' + c.n + '"><span class="no">' + bn(c.n) + '</span>' + c.t + (c.ready ? '' : '<span class="tag">শীঘ্রই</span>') + '</a>';
     }).join('') + '</div></div>';
+    if (b.id === 'acc') h += '<div class="card"><div class="ct">📝 পরীক্ষার প্রস্তুতি</div><div class="links"><a class="lnk" href="#acc-mt"><span class="no">✓</span>পূর্ণাঙ্গ মডেল টেস্ট (বোর্ড ২০২৪–২০২৫)</a></div></div>';
     h += '<div class="pager"><a href="#home">🏠 হোম</a><span></span><span></span></div>';
     setView(h, b.t);
   }
@@ -200,6 +201,7 @@
     var b = p[0] && findBook(p[0]);
     if (!b || b.soon) return home();
     if (!p[1]) return book(b);
+    if (p[1] === 'mt') return modelTests(b);
     var n = +p[1], c = b.chapters.filter(function (x) { return x.n === n; })[0];
     if (!c || !c.ready) return book(b);
     app.innerHTML = '<div class="card" style="margin-top:14px;text-align:center">লোড হচ্ছে…</div>';
@@ -210,6 +212,17 @@
       var q = d.qsets.filter(function (x) { return x.id === p[2]; })[0];
       return q ? qset(b, d, q) : chapter(b, d);
     }, function () { app.innerHTML = '<div class="card">এই অধ্যায়টি লোড করা যায়নি। পেজটি আবার খুলে দেখো।</div>'; });
+  }
+  function modelTests(b) {
+    var show = function () {
+      crumb.textContent = b.t + ' · মডেল টেস্ট';
+      setView(band(b.t, DK.mt.title) + '<div class="card lesson content">' + DK.mt.html + '</div><div class="pager"><a href="#' + b.id + '">← সূচিপত্র</a><span></span><span></span></div>', 'মডেল টেস্ট');
+      enhance();
+    };
+    if (DK.mt) return show();
+    var s = document.createElement('script'); s.src = 'data/acc/mt.js'; s.onload = show;
+    s.onerror = function () { app.innerHTML = '<div class="card">পাতাটি লোড করা যায়নি।</div>'; };
+    document.head.appendChild(s);
   }
   window.addEventListener('hashchange', route);
   route();
