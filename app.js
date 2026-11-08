@@ -238,7 +238,9 @@
       return document.head.appendChild(s2);
     }
     var M = DK.mcq, MB = DK.mcqb, chs = Object.keys(M).map(Number).sort(function (x, y) { return x - y; });
-    var BK = Object.keys(MB);
+    var BK = Object.keys(MB).filter(function (k) { return k.indexOf('mt') !== 0; });
+    var MK = Object.keys(MB).filter(function (k) { return k.indexOf('mt') === 0; });
+    function bLink(k) { return '<a class="lnk" href="#acc-mcqt-b' + k + '"><span class="no">✎</span>' + MB[k].t + ' · ' + bn(MB[k].u.reduce(function (s, u) { return s + u.i.length; }, 0)) + 'টি প্রশ্ন' + bestTag('b' + k) + '</a>'; }
     crumb.textContent = b.t + ' · এমসিকিউ মডেল টেস্ট';
     var best = store('mcqbest') || {};
     function bestTag(k) { return best[k] !== undefined ? '<span class="tag">সেরা ' + bn(best[k]) + '%</span>' : ''; }
@@ -248,9 +250,8 @@
         '<div class="ct">🎓 পূর্ণাঙ্গ (বোর্ড পরীক্ষার মতো)</div><div class="links"><a class="lnk" href="#acc-mcqt-all"><span class="no">৩০</span>সব অধ্যায় মিলিয়ে · ৩০টি প্রশ্ন · ৩০ মিনিট' + bestTag('all') + '</a></div>' +
         '<div class="ct" style="margin-top:14px">📚 অধ্যায়ভিত্তিক</div><div class="links">' + chs.map(function (n) {
           return '<a class="lnk" href="#acc-mcqt-' + n + '"><span class="no">' + bn(n) + '</span>' + M[n].t + ' · ২০টি প্রশ্ন' + bestTag(n) + '</a>';
-        }).join('') + '</div>' + (BK.length ? '<div class="ct" style="margin-top:14px">🏛 বোর্ড পরীক্ষার প্রশ্ন (হুবহু, সময় ধরে)</div><div class="links">' + BK.map(function (k) {
-          return '<a class="lnk" href="#acc-mcqt-b' + k + '"><span class="no">✎</span>' + MB[k].t + ' · ' + bn(MB[k].u.reduce(function (s, u) { return s + u.i.length; }, 0)) + 'টি প্রশ্ন' + bestTag('b' + k) + '</a>';
-        }).join('') + '</div>' : '') + '</div><div class="pager"><a href="#' + b.id + '">← সূচিপত্র</a><a href="#home">🏠 হোম</a><span></span></div>';
+        }).join('') + '</div>' + (MK.length ? '<div class="ct" style="margin-top:14px">📝 নির্বাচিত মডেল টেস্ট (সময় ধরে)</div><div class="links">' + MK.map(bLink).join('') + '</div>' : '') +
+        (BK.length ? '<div class="ct" style="margin-top:14px">🏛 বোর্ড পরীক্ষার প্রশ্ন (হুবহু, সময় ধরে)</div><div class="links">' + BK.map(bLink).join('') + '</div>' : '') + '</div><div class="pager"><a href="#' + b.id + '">← সূচিপত্র</a><a href="#home">🏠 হোম</a><span></span></div>';
       return setView(h, 'এমসিকিউ মডেল টেস্ট');
     }
     var bkey = sel.charAt(0) === 'b' ? sel.slice(1) : null;
