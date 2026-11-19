@@ -41,17 +41,40 @@
   /* ---------- views ---------- */
   function home() {
     crumb.textContent = '';
-    var h = '<div class="hero"><img class="heroicon" src="' + DK.icon + '" alt="Dakkhota"><div class="herotitle">Dakkhota</div><p>SSC ও HSC ব্যবসায় শিক্ষা বিভাগ · অধ্যায়ভিত্তিক ডিজিটাল বই, সহজ ব্যাখ্যা ও প্রশ্ন অনুশীলন</p></div>';
-    function shelf(lvl, title) {
+    var ICON = {
+      acc: '<path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M8 7h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M8 18h8"/>',
+      fin: '<path d="M3 10l9-6 9 6"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/>',
+      ent: '<path d="M12 3c3 2 5 5 5 9l-2 3H9l-2-3c0-4 2-7 5-9z"/><circle cx="12" cy="10" r="1.6"/><path d="M9 15l-2 4 3-1M15 15l2 4-3-1"/>',
+      hac1: '<path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/><path d="M6.5 9h3M6.5 12h3M14.5 9h3M14.5 12h3"/>',
+      hac2: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/><path d="M4 8l6-5 6 7 5-4"/>'
+    };
+    var TONE = { acc: 'teal', fin: 'indigo', ent: 'amber', hac1: 'navy', hac2: 'plum' };
+    function ready(b) { return (b.chapters || []).filter(function (c) { return c.ready; }).length; }
+    var nCh = DK.books.reduce(function (s, b) { return s + ready(b); }, 0);
+    var h = '<section class="hm-hero"><div class="hm-glow"></div>' +
+      '<div class="hm-brand"><span class="hm-logo"><img src="' + DK.icon + '" alt=""></span><div><div class="hm-name">Dakkhota</div><div class="hm-tag">দক্ষতা · ব্যবসায় শিক্ষা</div></div></div>' +
+      '<h1 class="hm-h1">ব্যবসায় শিক্ষার পূর্ণাঙ্গ <span>ডিজিটাল পাঠশালা</span></h1>' +
+      '<p class="hm-sub">অধ্যায়ভিত্তিক সহজ ব্যাখ্যা, সৃজনশীল ও বহুনির্বাচনি প্রশ্ন, বোর্ড প্রশ্ন আর সময় ধরে মডেল টেস্ট। SSC ও HSC দুই স্তরেই।</p>' +
+      '<div class="hm-cta"><button class="hm-btn pri" data-go="lvl-SSC">SSC বই দেখো</button><button class="hm-btn ghost" data-go="lvl-HSC">HSC বই দেখো</button></div>' +
+      '<div class="hm-stats"><div><b>' + bn(nCh) + '</b><span>প্রস্তুত অধ্যায়</span></div><div><b>২,৯০০+</b><span>এমসিকিউ</span></div><div><b>৭০</b><span>বোর্ড ও মডেল টেস্ট</span></div></div>' +
+      '</section>';
+    function shelf(lvl, title, cls) {
       var bs = DK.books.filter(function (b) { return b.lvl === lvl; });
-      return band(title, 'একটি বই বেছে নাও') + '<div class="books">' + bs.map(function (b) {
-        var bc = b.cover ? '<div class="bc" style="background-image:url(' + b.cover + ')"></div>' : '<div class="bc ph"><span>' + b.t + '</span></div>';
-        return '<a class="book' + (b.soon ? ' soon' : '') + '" href="#' + b.id + '">' + bc + '<div class="bb"><h3>' + b.t + '</h3><div class="en">' + b.en + '</div><span class="st">' + (b.soon ? 'শীঘ্রই আসছে' : '📖 পড়া শুরু করো') + '</span></div></a>';
-      }).join('') + '</div>';
+      return '<section class="hm-shelf" id="lvl-' + lvl + '"><div class="hm-sh"><span class="hm-lvl">' + lvl + '</span><div><h2>' + title + '</h2><p>' + cls + '</p></div></div><div class="hm-books">' + bs.map(function (b) {
+        var r = ready(b), tot = (b.chapters || []).length;
+        var meta = b.soon ? 'শীঘ্রই আসছে' : (r ? bn(r) + '/' + bn(tot) + ' অধ্যায় প্রস্তুত' : bn(tot) + 'টি অধ্যায় · কাজ চলছে');
+        var art = b.cover ? '<div class="hm-art photo" style="background-image:url(' + b.cover + ')"></div>'
+          : '<div class="hm-art"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' + (ICON[b.id] || ICON.acc) + '</svg></div>';
+        return '<a class="hm-book t-' + (TONE[b.id] || 'navy') + (b.soon ? ' soon' : '') + '" href="#' + b.id + '">' + art +
+          '<div class="hm-bb"><div class="hm-en">' + b.en + '</div><h3>' + b.t + '</h3><div class="hm-meta">' + meta + '</div>' +
+          (tot ? '<div class="hm-bar"><i style="width:' + Math.round(100 * r / tot) + '%"></i></div>' : '') +
+          '<span class="hm-go">' + (b.soon ? 'শীঘ্রই' : 'পড়া শুরু করো') + ' <em>→</em></span></div></a>';
+      }).join('') + '</div></section>';
     }
-    h += shelf('SSC', 'SSC ব্যবসায় শিক্ষা · নবম-দশম শ্রেণি');
-    h += shelf('HSC', 'HSC ব্যবসায় শিক্ষা · একাদশ-দ্বাদশ শ্রেণি');
+    h += shelf('SSC', 'মাধ্যমিক · ব্যবসায় শিক্ষা', 'নবম-দশম শ্রেণি');
+    h += shelf('HSC', 'উচ্চ মাধ্যমিক · ব্যবসায় শিক্ষা', 'একাদশ-দ্বাদশ শ্রেণি');
     setView(h);
+    $$('[data-go]').forEach(function (x) { x.onclick = function () { document.getElementById(x.dataset.go).scrollIntoView({ behavior: 'smooth', block: 'start' }); }; });
   }
 
   function book(b) {
