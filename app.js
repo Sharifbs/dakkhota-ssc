@@ -30,7 +30,7 @@
 
   function band(t, sub) { return '<div class="band"><h1>' + t + '</h1>' + (sub ? '<p>' + sub + '</p>' : '') + '</div>'; }
   function footer() {
-    return '<footer><img src="' + DK.icon + '" alt="">© Dakkhota · SSC ও HSC ব্যবসায় শিক্ষা<br>পাঠ্যবইয়ের পাতা: জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB), বাংলাদেশ</footer>';
+    return '<footer><img src="' + DK.icon + '" alt="">© Dakkhota · SSC ও HSC ব্যবসায় শিক্ষা<br><a class="wa-line" href="https://wa.me/8801716247713" target="_blank" rel="noopener">যোগাযোগ (WhatsApp): ০১৭১৬-২৪৭৭১৩</a><br>পাঠ্যবইয়ের পাতা: জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB), বাংলাদেশ</footer>';
   }
   function setView(html, title) {
     app.innerHTML = html + footer();

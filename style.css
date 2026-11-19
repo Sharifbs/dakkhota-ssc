@@ -369,3 +369,10 @@ table.eqt td.rm{font-size:12.5px;color:var(--muted);white-space:nowrap}
 .hm-book.soon .hm-art{filter:saturate(.35) brightness(1.05)}
 .hm-book.soon .hm-go{color:#9a7b12}
 @media (max-width:560px){.hm-hero{padding:24px 18px 18px;border-radius:18px}.hm-stats b{font-size:19px}.hm-books{grid-template-columns:1fr}}
+
+.wa-fab{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:55;display:flex;align-items:center;gap:8px;background:#25D366;color:#fff;text-decoration:none;font-weight:700;font-size:15px;border-radius:30px;padding:10px 16px 10px 12px;box-shadow:0 10px 24px -8px rgba(18,140,74,.7);transition:transform .15s}
+.wa-fab:hover{transform:translateY(-2px)}
+.wa-fab svg{width:24px;height:24px}
+@media (max-width:560px){.wa-fab span{display:none}.wa-fab{padding:12px}}
+@media print{.wa-fab{display:none}}
+.wa-line{color:#128C4A;font-weight:600;text-decoration:none}
