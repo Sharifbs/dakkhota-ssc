@@ -1,6 +1,6 @@
 DK.books = [
   {
-    id: 'acc', t: 'হিসাববিজ্ঞান', en: 'Accounting', cls: 'নবম-দশম শ্রেণি · NCTB ২০২৬',
+    id: 'acc', lvl: 'SSC', t: 'হিসাববিজ্ঞান', en: 'Accounting', cls: 'নবম-দশম শ্রেণি · NCTB ২০২৬',
     cover: 'img/acc/book/p001.webp', contents: 'img/acc/book/p005.webp',
     chapters: [
       { n: 1, t: 'হিসাববিজ্ঞান পরিচিতি', ready: true },
@@ -17,6 +17,26 @@ DK.books = [
       { n: 12, t: 'পারিবারিক ও আত্মকর্মসংস্থানমূলক উদ্যোগের হিসাব', ready: true }
     ]
   },
-  { id: 'fin', t: 'ফিন্যান্স ও ব্যাংকিং', en: 'Finance & Banking', cls: 'নবম-দশম শ্রেণি', soon: true },
-  { id: 'ent', t: 'ব্যবসায় উদ্যোগ', en: 'Business Entrepreneurship', cls: 'নবম-দশম শ্রেণি', soon: true }
+  { id: 'fin', lvl: 'SSC', t: 'ফিন্যান্স ও ব্যাংকিং', en: 'Finance & Banking', cls: 'নবম-দশম শ্রেণি', soon: true },
+  { id: 'ent', lvl: 'SSC', t: 'ব্যবসায় উদ্যোগ', en: 'Business Entrepreneurship', cls: 'নবম-দশম শ্রেণি', soon: true },
+  {
+    id: 'hac1', lvl: 'HSC', t: 'হিসাববিজ্ঞান ১ম পত্র', en: 'Accounting 1st Paper', cls: 'একাদশ-দ্বাদশ শ্রেণি',
+    chapters: [
+      { n: 1, t: 'হিসাববিজ্ঞান পরিচিতি' },
+      { n: 2, t: 'হিসাবের বইসমূহ' },
+      { n: 3, t: 'ব্যাংক সমন্বয় বিবরণী' },
+      { n: 4, t: 'রেওয়ামিল' },
+      { n: 5, t: 'হিসাববিজ্ঞানের নীতিমালা' }
+    ]
+  },
+  {
+    id: 'hac2', lvl: 'HSC', t: 'হিসাববিজ্ঞান ২য় পত্র', en: 'Accounting 2nd Paper', cls: 'একাদশ-দ্বাদশ শ্রেণি',
+    chapters: [
+      { n: 1, t: 'অব্যবসায়ী প্রতিষ্ঠানের হিসাব' },
+      { n: 2, t: 'অংশীদারি ব্যবসায়ের হিসাব' },
+      { n: 3, t: 'নগদ প্রবাহ বিবরণী' },
+      { n: 4, t: 'যৌথ মূলধনি কোম্পানির মূলধন' },
+      { n: 5, t: 'যৌথ মূলধনি কোম্পানির আর্থিক বিবরণী' }
+    ]
+  }
 ];

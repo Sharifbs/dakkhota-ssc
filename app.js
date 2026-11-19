@@ -30,31 +30,35 @@
 
   function band(t, sub) { return '<div class="band"><h1>' + t + '</h1>' + (sub ? '<p>' + sub + '</p>' : '') + '</div>'; }
   function footer() {
-    return '<footer><img src="' + DK.icon + '" alt="">© Dakkhota · SSC ব্যবসায় শিক্ষা<br>পাঠ্যবইয়ের পাতা: জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB), বাংলাদেশ</footer>';
+    return '<footer><img src="' + DK.icon + '" alt="">© Dakkhota · SSC ও HSC ব্যবসায় শিক্ষা<br>পাঠ্যবইয়ের পাতা: জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB), বাংলাদেশ</footer>';
   }
   function setView(html, title) {
     app.innerHTML = html + footer();
-    document.title = title ? title + ' | Dakkhota' : 'Dakkhota | SSC ব্যবসায় শিক্ষা';
+    document.title = title ? title + ' | Dakkhota' : 'Dakkhota | SSC ও HSC ব্যবসায় শিক্ষা';
     window.scrollTo(0, 0);
   }
 
   /* ---------- views ---------- */
   function home() {
     crumb.textContent = '';
-    var h = '<div class="hero"><img class="heroicon" src="' + DK.icon + '" alt="Dakkhota"><div class="herotitle">Dakkhota</div><p>SSC ব্যবসায় শিক্ষা বিভাগ · অধ্যায়ভিত্তিক ডিজিটাল বই, সহজ ব্যাখ্যা ও প্রশ্ন অনুশীলন</p></div>';
-    h += band('SSC ব্যবসায় শিক্ষা · নবম-দশম শ্রেণি', 'একটি বই বেছে নাও');
-    h += '<div class="books">' + DK.books.map(function (b) {
-      var bc = b.cover ? '<div class="bc" style="background-image:url(' + b.cover + ')"></div>' : '<div class="bc ph"><span>' + b.t + '</span></div>';
-      return '<a class="book' + (b.soon ? ' soon' : '') + '" href="#' + b.id + '">' + bc + '<div class="bb"><h3>' + b.t + '</h3><div class="en">' + b.en + '</div><span class="st">' + (b.soon ? 'শীঘ্রই আসছে' : '📖 পড়া শুরু করো') + '</span></div></a>';
-    }).join('') + '</div>';
+    var h = '<div class="hero"><img class="heroicon" src="' + DK.icon + '" alt="Dakkhota"><div class="herotitle">Dakkhota</div><p>SSC ও HSC ব্যবসায় শিক্ষা বিভাগ · অধ্যায়ভিত্তিক ডিজিটাল বই, সহজ ব্যাখ্যা ও প্রশ্ন অনুশীলন</p></div>';
+    function shelf(lvl, title) {
+      var bs = DK.books.filter(function (b) { return b.lvl === lvl; });
+      return band(title, 'একটি বই বেছে নাও') + '<div class="books">' + bs.map(function (b) {
+        var bc = b.cover ? '<div class="bc" style="background-image:url(' + b.cover + ')"></div>' : '<div class="bc ph"><span>' + b.t + '</span></div>';
+        return '<a class="book' + (b.soon ? ' soon' : '') + '" href="#' + b.id + '">' + bc + '<div class="bb"><h3>' + b.t + '</h3><div class="en">' + b.en + '</div><span class="st">' + (b.soon ? 'শীঘ্রই আসছে' : '📖 পড়া শুরু করো') + '</span></div></a>';
+      }).join('') + '</div>';
+    }
+    h += shelf('SSC', 'SSC ব্যবসায় শিক্ষা · নবম-দশম শ্রেণি');
+    h += shelf('HSC', 'HSC ব্যবসায় শিক্ষা · একাদশ-দ্বাদশ শ্রেণি');
     setView(h);
   }
 
   function book(b) {
     crumb.textContent = b.t;
-    var h = '<img class="coverimg" src="' + b.cover + '" alt="' + b.t + ' বইয়ের প্রচ্ছদ">';
-    h += band('SSC ' + b.t, b.cls);
-    h += '<div class="card"><div class="ct">📖 বইয়ের সূচিপত্র</div><img class="pageimg" src="' + b.contents + '" alt="সূচিপত্র"><div class="zoomhint">ছবিতে চাপ দিলে বড় করে দেখা যাবে</div></div>';
+    var h = b.cover ? '<img class="coverimg" src="' + b.cover + '" alt="' + b.t + ' বইয়ের প্রচ্ছদ">' : '';
+    h += band(b.lvl + ' ' + b.t, b.cls);
+    if (b.contents) h += '<div class="card"><div class="ct">📖 বইয়ের সূচিপত্র</div><img class="pageimg" src="' + b.contents + '" alt="সূচিপত্র"><div class="zoomhint">ছবিতে চাপ দিলে বড় করে দেখা যাবে</div></div>';
     h += '<div class="card"><div class="ct">📚 অধ্যায়সমূহ</div><div class="links">' + b.chapters.map(function (c) {
       return '<a class="lnk' + (c.ready ? '' : ' off') + '" href="#' + b.id + '-' + c.n + '"><span class="no">' + bn(c.n) + '</span>' + c.t + (c.ready ? '' : '<span class="tag">শীঘ্রই</span>') + '</a>';
     }).join('') + '</div></div>';
