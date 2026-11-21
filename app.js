@@ -49,7 +49,7 @@
       hac2: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/><path d="M4 8l6-5 6 7 5-4"/>'
     };
     var TONE = { acc: 'teal', fin: 'indigo', ent: 'amber', hac1: 'navy', hac2: 'plum' };
-    function ready(b) { return (b.chapters || []).filter(function (c) { return c.ready; }).length; }
+    function ready(b) { return (b.chapters || []).filter(function (c) { return c.ready && !c.part; }).length; }
     var nCh = DK.books.reduce(function (s, b) { return s + ready(b); }, 0);
     var h = '<section class="hm-hero"><div class="hm-glow"></div>' +
       '<div class="hm-brand"><span class="hm-logo"><img src="' + DK.icon + '" alt=""></span><div><div class="hm-name">Dakkhota</div><div class="hm-tag">দক্ষতা · ব্যবসায় শিক্ষা</div></div></div>' +
@@ -83,7 +83,7 @@
     h += band(b.lvl + ' ' + b.t, b.cls);
     if (b.contents) h += '<div class="card"><div class="ct">📖 বইয়ের সূচিপত্র</div><img class="pageimg" src="' + b.contents + '" alt="সূচিপত্র"><div class="zoomhint">ছবিতে চাপ দিলে বড় করে দেখা যাবে</div></div>';
     h += '<div class="card"><div class="ct">📚 অধ্যায়সমূহ</div><div class="links">' + b.chapters.map(function (c) {
-      return '<a class="lnk' + (c.ready ? '' : ' off') + '" href="#' + b.id + '-' + c.n + '"><span class="no">' + bn(c.n) + '</span>' + c.t + (c.ready ? '' : '<span class="tag">শীঘ্রই</span>') + '</a>';
+      return '<a class="lnk' + (c.ready ? '' : ' off') + '" href="#' + b.id + '-' + c.n + '"><span class="no">' + bn(c.n) + '</span>' + c.t + (c.ready ? (c.part ? '<span class="tag">চলমান</span>' : '') : '<span class="tag">শীঘ্রই</span>') + '</a>';
     }).join('') + '</div></div>';
     if (b.id === 'acc') h += '<div class="card"><div class="ct">📝 পরীক্ষার প্রস্তুতি</div><div class="links"><a class="lnk" href="#acc-mcqt"><span class="no">⏱</span>এমসিকিউ মডেল টেস্ট (অধ্যায়ভিত্তিক, পূর্ণাঙ্গ ও বোর্ড প্রশ্ন)</a><a class="lnk" href="#acc-mt"><span class="no">✓</span>পূর্ণাঙ্গ মডেল টেস্ট — সৃজনশীল (বোর্ড ২০২৪–২০২৫)</a></div></div>';
     h += '<div class="pager"><a href="#home">🏠 হোম</a><span></span><span></span></div>';
@@ -122,7 +122,7 @@
     var h = band(b.t + ' · অধ্যায় ' + bn(d.num), d.title);
     h += '<div class="card lesson"><div class="ct"><span class="ic">📘</span>পাঠ ' + bn(k) + ': ' + l.t + '</div>';
     h += l.pages.map(function (p) { return '<img class="pageimg" loading="lazy" src="img/' + b.id + '/book/' + p + '.webp" alt="পাঠ্যবইয়ের পাতা">'; }).join('');
-    h += '<div class="zoomhint">বইয়ের পাতায় চাপ দিলে বড় করে পড়া যাবে</div>';
+    if (l.pages.length) h += '<div class="zoomhint">বইয়ের পাতায় চাপ দিলে বড় করে পড়া যাবে</div>';
     if (l.terms) h += '<div class="sub">📖 পরিভাষা (শব্দার্থ)</div><div class="content">' + l.terms + '</div>';
     if (l.solve) h += '<div class="sub">✅ এই পাতার প্রশ্ন ও কাজের সমাধান</div><div class="content solve">' + l.solve + '</div>';
     if (l.html) h += '<div class="sub">💡 সহজ ব্যাখ্যা ও নোট</div><div class="content">' + l.html + '</div>';
@@ -139,7 +139,7 @@
     else if (q.images && q.images.length) {
       h += q.images.map(function (im) { return '<div class="qimg">' + (im.cap ? '<div class="cap">' + im.cap + '</div>' : '') + '<img class="pageimg" loading="lazy" src="' + im.src + '" alt="' + esc(im.cap || q.t) + '"></div>'; }).join('');
     } else if (q.soon) {
-      h += '<div class="soonbox"><div class="big">🏛</div><h3>' + q.t + ' শীঘ্রই যুক্ত হবে</h3><p>এই অংশে বিভিন্ন বোর্ড ও সালের প্রশ্ন সাজিয়ে দেওয়া হবে। ততক্ষণ সৃজনশীল ও বহুনির্বাচনি অংশ অনুশীলন করো।</p></div>';
+      h += '<div class="soonbox"><div class="big">🏛</div><h3>' + q.t + ' শীঘ্রই যুক্ত হবে</h3><p>' + (q.id === 'board' ? 'এই অংশে বিভিন্ন বোর্ড ও সালের প্রশ্ন সাজিয়ে দেওয়া হবে। ততক্ষণ সৃজনশীল ও বহুনির্বাচনি অংশ অনুশীলন করো।' : 'এই অংশের প্রশ্ন ও সমাধান খুব শিগগির যোগ হবে। ততক্ষণ পাঠগুলো পড়ে নাও।') + '</p></div>';
     } else {
       var hasQA = /class="qa"/.test(q.html), hasCQ = /class="cq"/.test(q.html);
       h += '<div class="tools">' + (hasQA ? '<button class="btn alt" id="tgQA">🙈 উত্তর লুকাও (নিজে যাচাই)</button>' : '') +
