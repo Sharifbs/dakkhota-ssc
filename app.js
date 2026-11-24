@@ -10,7 +10,7 @@
   function store(k, v) { try { if (v === undefined) return JSON.parse(localStorage.getItem('dk-' + k)); localStorage.setItem('dk-' + k, JSON.stringify(v)); } catch (e) { return null; } }
 
   /* ---------- reader sign-up (name + phone) ---------- */
-  var LEAD_URL = '';  // Google Apps Script web-app URL
+  var LEAD_URL = 'https://script.google.com/macros/s/AKfycbwavWNLi93LIgEsWxrQW48ufdaQVXBjqny-_oEU4-bihZrHbwapvUdtRbNJXxQc0TNX/exec';  // Google Apps Script web-app URL
   function normPhone(v) {
     v = String(v || '').replace(/[০-৯]/g, function (d) { return '০১২৩৪৫৬৭৮৯'.indexOf(d); }).replace(/\D/g, '');
     if (v.indexOf('880') === 0) v = v.slice(2); else if (v.indexOf('88') === 0 && v.length === 13) v = v.slice(2);
