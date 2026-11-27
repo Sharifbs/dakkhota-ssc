@@ -412,3 +412,9 @@ body.noscroll{overflow:hidden}
 .gate-box .hm-btn{width:100%;padding:13px;font-size:16px}
 .gate-err{color:#c0392b;font-size:13.5px;background:#fdecea;border-radius:10px;padding:8px 10px}
 .gate-box small{color:var(--muted);font-size:12px;text-align:center;line-height:1.5}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0}
+table.ws{border-collapse:collapse;font-size:12.5px;min-width:820px;width:100%}
+table.ws th,table.ws td{border:1px solid #d6dcea;padding:4px 6px;text-align:right;white-space:nowrap}
+table.ws th{background:#1B2F6E;color:#fff;text-align:center}
+table.ws td:first-child{text-align:left;white-space:normal;min-width:150px;position:sticky;left:0;background:#fff}
+table.ws tr:last-child td{border-top:2px solid #1B2F6E}
